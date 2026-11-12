@@ -628,19 +628,20 @@ function publicCard(x) {
   `;
 }
 
-$('#get-started').onclick = () => {
+
+$('#get-started')?.addEventListener('click', () => {
   if (connectDB()) showAuth();
   else configScreen();
-};
+});
 
-$('#view-demo').onclick = () => {
+$('#view-demo')?.addEventListener('click', () => {
   showWorkspace(`
-    <div class="panel empty">
+    <div class="panel">
       <h2>Sample menu</h2>
       <p>Your restaurant menu will appear here after setup.</p>
     </div>
   `);
-};
+});
 
 (async () => {
   const slug = new URLSearchParams(location.search).get('r');
@@ -651,5 +652,6 @@ $('#view-demo').onclick = () => {
     await checkSession();
   } else {
     setHeader();
+    configScreen();
   }
 })();
