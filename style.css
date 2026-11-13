@@ -306,3 +306,32 @@ body {
   }
 }
 
+/* Final mobile image and layout fix */
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+#app {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+img {
+  display: block !important;
+  width: 100% !important;
+  max-width: calc(100vw - 32px) !important;
+  height: 180px !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 768px) {
+  #app > *,
+  #app section,
+  #app article {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
