@@ -264,3 +264,45 @@ label {
     grid-template-columns: 1fr;
   }
 }
+
+/* MenuSnap mobile responsive fix */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  #app {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  #app img {
+    display: block;
+    max-width: 100%;
+    max-height: 180px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  #app input,
+  #app select,
+  #app textarea,
+  #app button {
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  #app > * {
+    max-width: 100%;
+  }
+}
+
