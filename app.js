@@ -375,10 +375,13 @@ function renderDashboard() {
               <strong>${esc(item.name)} · ₹${Number(item.price).toFixed(2)}</strong>
               <small>${item.is_available ? 'Available' : 'Unavailable'}</small>
             </div>
-            <button class="small" data-toggle="${item.id}">
-              ${item.is_available ? 'Hide' : 'Show'}
-            </button>
-            <button class="danger small" data-delete="${item.id}">Delete</button>
+            <button class="secondary small" data-edit="${item.id}">Edit</button>
+
+<button class="small" data-toggle="${item.id}">
+  ${item.is_available ? 'Hide' : 'Show'}
+</button>
+
+<button class="danger small" data-delete="${item.id}">Delete</button>
           </div>
         `).join('')}
       </div>
@@ -396,6 +399,9 @@ function renderDashboard() {
   document.querySelectorAll('[data-delete]').forEach(b =>
     b.onclick = () => deleteItem(b.dataset.delete)
   );
+  document.querySelectorAll('[data-edit]').forEach(b =>
+  b.onclick = () => editItem(b.dataset.edit)
+);
 
   document.querySelectorAll('[data-toggle]').forEach(b =>
     b.onclick = () => toggleItem(b.dataset.toggle)
@@ -478,6 +484,112 @@ async function addItem() {
 
   await loadMenuData();
   renderDashboard();
+}
+
+
+async function editItem(id) {
+  const item = items.find(x => x.id === id);
+  if (!item) return toast('Menu item not found.');
+
+  showWorkspace(`
+    <div class="panel">
+      <h2>Edit menu item</h2>
+
+      <div class="field">
+        <label>ITEM NAME</label>
+        <input id="edit-item-name" value="${esc(item.name)}">
+      </div>
+
+      <div class="field">
+        <label>PRICE (₹)</label>
+        <input id="edit-item-price" type="number" min="0" value="${Number(item.price)}">
+      </div>
+
+      <div class="field">
+        <label>CATEGORY</label>
+        <select id="edit-item-category">
+          <option value="">Choose category</option>
+          ${categories.map(c => `
+            <option value="${c.id}" ${item.category_id === c.id ? 'selected' : ''}>
+              ${esc(c.name)}
+            </option>
+          `).join('')}
+        </select>
+      </div>
+
+      <div class="field">
+        <label>DESCRIPTION</label>
+        <textarea id="edit-item-desc">${esc(item.description || '')}</textarea>
+      </div>
+
+      <div class="field">
+        <label>NEW FOOD PHOTO (OPTIONAL)</label>
+        <input id="edit-item-image" type="file" accept="image/png,image/jpeg,image/webp">
+      </div>
+
+      <button class="primary" id="save-item-edit">Save changes</button>
+      <button class="secondary" id="cancel-item-edit">Cancel</button>
+    </div>
+  `);
+
+  $('#cancel-item-edit').onclick = renderDashboard;
+
+  $('#save-item-edit').onclick = async () => {
+    const name = $('#edit-item-name').value.trim();
+    const priceText = $('#edit-item-price').value;
+    const price = Number(priceText);
+    const category_id = $('#edit-item-category').value || null;
+    const description = $('#edit-item-desc').value.trim();
+    const file = $('#edit-item-image').files[0];
+
+    if (!name || priceText === '' || !Number.isFinite(price) || price < 0) {
+      toast('Enter item name and valid price.');
+      return;
+    }
+
+    let image_url = item.image_url;
+
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast('Image must be smaller than 5 MB.');
+        return;
+      }
+
+      const path = `${user.id}/${restaurant.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+
+      const upload = await sb.storage
+        .from('menusnap-images')
+        .upload(path, file, { upsert: true });
+
+      if (upload.error) {
+        toast(upload.error.message);
+        return;
+      }
+
+      image_url = sb.storage
+        .from('menusnap-images')
+        .getPublicUrl(path).data.publicUrl;
+    }
+
+    const { error } = await sb.from('ms_menu_items')
+      .update({
+        name,
+        price,
+        category_id,
+        description,
+        image_url
+      })
+      .eq('id', id);
+
+    if (error) {
+      toast(error.message);
+      return;
+    }
+
+    await loadMenuData();
+    renderDashboard();
+    toast('Menu item updated.');
+  };
 }
 
 async function deleteItem(id) {
