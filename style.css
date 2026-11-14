@@ -335,3 +335,231 @@ img {
     max-width: 100% !important;
   }
 }
+
+/* MENUSNAP PREMIUM DASHBOARD */
+
+.ms-dashboard {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  color: #f5f5f5;
+}
+
+.ms-welcome {
+  padding: 32px;
+  margin-bottom: 24px;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #252525, #783b25, #b84e2d);
+  color: white;
+}
+
+.ms-welcome .tag {
+  color: #ffb18d;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.ms-welcome h1 {
+  font-size: 30px;
+  margin: 14px 0 5px;
+}
+
+.ms-welcome h2 {
+  font-size: 21px;
+  margin: 0;
+}
+
+.ms-welcome p {
+  color: #f1d8ce;
+  margin-bottom: 0;
+}
+
+.ms-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.ms-stat {
+  background: #202020;
+  border: 1px solid #393939;
+  border-radius: 15px;
+  padding: 20px;
+  min-width: 0;
+}
+
+.ms-stat span,
+.ms-stat small {
+  display: block;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.ms-stat strong {
+  display: block;
+  font-size: 29px;
+  margin: 12px 0;
+  color: #ff895f;
+}
+
+.ms-section-heading {
+  margin: 28px 0 15px;
+}
+
+.ms-section-heading h2 {
+  font-size: 21px;
+  margin-bottom: 5px;
+}
+
+.ms-section-heading p {
+  color: #aaa;
+}
+
+.ms-main-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ms-panel,
+.ms-dashboard .panel {
+  background: #202020;
+  border: 1px solid #383838;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 18px;
+  color: #f5f5f5;
+}
+
+.ms-panel h2 {
+  font-size: 19px;
+  margin-top: 0;
+}
+
+.ms-panel p {
+  color: #aaa;
+}
+
+.ms-qr {
+  text-align: center;
+}
+
+.ms-qr img {
+  display: block;
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  margin: 15px auto;
+}
+
+.ms-qr a {
+  color: #ff956f;
+  font-weight: 600;
+}
+
+.ms-qr .link {
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+.ms-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.ms-action {
+  background: #242424;
+  border: 1px solid #414141;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.ms-action span {
+  display: block;
+  color: #ff895f;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.ms-action strong,
+.ms-action small {
+  display: block;
+}
+
+.ms-action small {
+  color: #aaa;
+  margin-top: 6px;
+}
+
+.ms-menu-item {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ms-menu-item img {
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.ms-dashboard button {
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .ms-welcome {
+    padding: 22px;
+  }
+
+  .ms-welcome h1 {
+    font-size: 24px;
+  }
+
+  .ms-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .ms-stat {
+    padding: 14px;
+  }
+
+  .ms-stat strong {
+    font-size: 24px;
+  }
+
+  .ms-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ms-quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ms-panel,
+  .ms-dashboard .panel {
+    padding: 16px;
+  }
+
+  .ms-menu-item {
+    align-items: center;
+  }
+
+  .ms-menu-item button {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .ms-quick-actions {
+    grid-template-columns: 1fr;
+  }
+}
