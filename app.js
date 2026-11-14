@@ -293,98 +293,179 @@ function menuUrl() {
   return `${location.origin}${location.pathname}?r=${encodeURIComponent(restaurant.slug)}`;
 }
 
+
 function renderDashboard() {
   const url = menuUrl();
   const qr = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data='
     + encodeURIComponent(url);
 
-  showWorkspace(`
-    <div class="panel">
-      <h2>${esc(restaurant.name)}</h2>
-      <span class="tag">Menu active</span>
+  const availableItems = items.filter(item => item.is_available).length;
+  const unavailableItems = items.length - availableItems;
 
-      <div class="qr-wrap">
-        <img src="${qr}" alt="Restaurant QR code">
-        <div>
-          <h3>Your menu QR code</h3>
-          <p class="link">${esc(url)}</p>
-          <a href="${qr}" download="menusnap-qr.png">Download QR</a>
+  showWorkspace(`
+    <div class="ms-dashboard">
+
+      <div class="ms-welcome">
+        <span class="tag">RESTAURANT MANAGEMENT</span>
+        <h1>Welcome back!</h1>
+        <h2>${esc(restaurant.name)}</h2>
+        <p>Manage your restaurant menu in one place.</p>
+      </div>
+
+      <div class="ms-stats">
+        <div class="ms-stat">
+          <span>Total Menu Items</span>
+          <strong>${items.length}</strong>
+          <small>Your complete menu</small>
+        </div>
+
+        <div class="ms-stat">
+          <span>Categories</span>
+          <strong>${categories.length}</strong>
+          <small>Menu sections</small>
+        </div>
+
+        <div class="ms-stat">
+          <span>Available Items</span>
+          <strong>${availableItems}</strong>
+          <small>Visible to customers</small>
+        </div>
+
+        <div class="ms-stat">
+          <span>Unavailable Items</span>
+          <strong>${unavailableItems}</strong>
+          <small>Currently hidden</small>
         </div>
       </div>
-      <button class="secondary" id="edit-rest">Edit restaurant</button>
-    </div>
 
-    <div class="panel">
-      <h2>Menu categories</h2>
-      <div class="field">
-        <input id="new-category" placeholder="Starters, Main course...">
-      </div>
-      <button class="primary" id="add-category">Add category</button>
-
-      <div class="item-list">
-        ${categories.map(c => `
-          <div class="item">
-            <div class="item-info"><strong>${esc(c.name)}</strong></div>
-            <button class="danger small" data-delcat="${c.id}">Delete</button>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>Add a menu item</h2>
-
-      <div class="field">
-        <label>ITEM NAME</label>
-        <input id="item-name" placeholder="Paneer Tikka">
+      <div class="ms-section-heading">
+        <h2>Restaurant Management</h2>
+        <p>Manage your restaurant and digital menu.</p>
       </div>
 
-      <div class="field">
-        <label>PRICE (₹)</label>
-        <input id="item-price" type="number" min="0" placeholder="180">
+      <div class="ms-main-grid">
+
+        <div class="panel ms-panel">
+          <h2>Restaurant Profile</h2>
+          <h3>${esc(restaurant.name)}</h3>
+          <p>${esc(restaurant.description || 'Your restaurant profile')}</p>
+          <button class="secondary" id="edit-rest">Edit Restaurant</button>
+        </div>
+
+        <div class="panel ms-panel ms-qr">
+          <h2>Your QR Code</h2>
+          <img src="${qr}" alt="Restaurant QR code">
+          <p>Customers can scan this code to view your menu.</p>
+          <a href="${qr}" download="menusnap-qr.png">Download QR Code</a>
+          <p class="link">${esc(url)}</p>
+        </div>
+
       </div>
 
-      <div class="field">
-        <label>CATEGORY</label>
-        <select id="item-category">
-          <option value="">Choose category</option>
-          ${categories.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('')}
-        </select>
+      <div class="ms-section-heading">
+        <h2>Quick Actions</h2>
       </div>
 
-      <div class="field">
-        <label>FOOD PHOTO</label>
-        <input id="item-image" type="file" accept="image/png,image/jpeg,image/webp">
+      <div class="ms-quick-actions">
+        <div class="ms-action">
+          <span>＋</span>
+          <strong>Add Menu Item</strong>
+          <small>Use the form below</small>
+        </div>
+
+        <div class="ms-action">
+          <span>▤</span>
+          <strong>Manage Categories</strong>
+          <small>Organise your menu</small>
+        </div>
       </div>
 
-      <div class="field">
-        <label>DESCRIPTION</label>
-        <textarea id="item-desc"></textarea>
-      </div>
+      <div class="panel ms-panel">
+        <h2>Menu Categories</h2>
 
-      <button class="primary" id="add-item">Add menu item</button>
-    </div>
+        <div class="field">
+          <input id="new-category"
+            placeholder="Category name, e.g. Starters">
+        </div>
 
-    <div class="panel">
-      <h2>Your menu items</h2>
-      <div class="item-list">
-        ${items.map(item => `
-          <div class="item">
-            <img src="${esc(item.image_url || 'https://placehold.co/120x120')}">
-            <div class="item-info">
-              <strong>${esc(item.name)} · ₹${Number(item.price).toFixed(2)}</strong>
-              <small>${item.is_available ? 'Available' : 'Unavailable'}</small>
+        <button class="primary" id="add-category">Add Category</button>
+
+        <div class="item-list">
+          ${categories.map(c => `
+            <div class="item">
+              <div class="item-info">
+                <strong>${esc(c.name)}</strong>
+              </div>
+              <button class="danger small" data-delcat="${c.id}">Delete</button>
             </div>
-            <button class="secondary small" data-edit="${item.id}">Edit</button>
-
-<button class="small" data-toggle="${item.id}">
-  ${item.is_available ? 'Hide' : 'Show'}
-</button>
-
-<button class="danger small" data-delete="${item.id}">Delete</button>
-          </div>
-        `).join('')}
+          `).join('')}
+        </div>
       </div>
+
+      <div class="panel ms-panel">
+        <h2>Add a Menu Item</h2>
+
+        <div class="field">
+          <label>ITEM NAME</label>
+          <input id="item-name" placeholder="Paneer Tikka">
+        </div>
+
+        <div class="field">
+          <label>PRICE (₹)</label>
+          <input id="item-price" type="number" min="0" placeholder="180">
+        </div>
+
+        <div class="field">
+          <label>CATEGORY</label>
+          <select id="item-category">
+            <option value="">Choose category</option>
+            ${categories.map(c =>
+              `<option value="${c.id}">${esc(c.name)}</option>`
+            ).join('')}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>FOOD PHOTO</label>
+          <input id="item-image" type="file"
+            accept="image/png,image/jpeg,image/webp">
+        </div>
+
+        <div class="field">
+          <label>DESCRIPTION</label>
+          <textarea id="item-desc"
+            placeholder="Describe your food item"></textarea>
+        </div>
+
+        <button class="primary" id="add-item">Add Menu Item</button>
+      </div>
+
+      <div class="panel ms-panel">
+        <h2>Your Menu Items</h2>
+
+        <div class="item-list">
+          ${items.map(item => `
+            <div class="item ms-menu-item">
+              <img src="${esc(item.image_url || 'https://placehold.co/120x120')}"
+                alt="${esc(item.name)}">
+
+              <div class="item-info">
+                <strong>${esc(item.name)} · ₹${Number(item.price).toFixed(2)}</strong>
+                <small>${item.is_available ? 'Available' : 'Unavailable'}</small>
+              </div>
+
+              <button class="secondary small" data-edit="${item.id}">Edit</button>
+
+              <button class="small" data-toggle="${item.id}">
+                ${item.is_available ? 'Hide' : 'Show'}
+              </button>
+
+              <button class="danger small" data-delete="${item.id}">Delete</button>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
     </div>
   `);
 
@@ -399,14 +480,16 @@ function renderDashboard() {
   document.querySelectorAll('[data-delete]').forEach(b =>
     b.onclick = () => deleteItem(b.dataset.delete)
   );
+
   document.querySelectorAll('[data-edit]').forEach(b =>
-  b.onclick = () => editItem(b.dataset.edit)
-);
+    b.onclick = () => editItem(b.dataset.edit)
+  );
 
   document.querySelectorAll('[data-toggle]').forEach(b =>
     b.onclick = () => toggleItem(b.dataset.toggle)
   );
 }
+
 
 async function addCategory() {
   const name = $('#new-category').value.trim();
