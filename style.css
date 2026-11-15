@@ -791,3 +791,170 @@ img {
     grid-template-columns: 1fr;
   }
 }
+
+/* MENUSNAP WHITE + GREEN RESPONSIVE THEME */
+:root {
+  color: #26352d;
+  background: #f5f8f6;
+}
+
+body {
+  background: #f5f8f6;
+  color: #26352d;
+}
+
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5eee8;
+}
+
+.brand {
+  color: #27834b;
+}
+
+main {
+  max-width: 1500px;
+  width: 100%;
+}
+
+.ms-dashboard {
+  width: 100%;
+  max-width: 1500px;
+  margin: auto;
+  color: #26352d;
+}
+
+.ms-welcome {
+  background: #ffffff;
+  color: #26352d;
+  border: 1px solid #e5eee8;
+  border-radius: 16px;
+  padding: 26px;
+  box-shadow: 0 3px 14px rgba(30, 80, 50, .04);
+}
+
+.ms-welcome .tag {
+  color: #27834b;
+}
+
+.ms-welcome h1,
+.ms-welcome h2 {
+  color: #26352d;
+}
+
+.ms-welcome p {
+  color: #718078;
+}
+
+.ms-stat,
+.ms-panel,
+.ms-dashboard .panel,
+.ms-action {
+  background: #ffffff;
+  color: #26352d;
+  border: 1px solid #e5eee8;
+  border-radius: 14px;
+  box-shadow: 0 3px 14px rgba(30, 80, 50, .04);
+}
+
+.ms-stat span,
+.ms-stat small,
+.ms-panel p,
+.ms-action small {
+  color: #718078;
+}
+
+.ms-stat strong,
+.ms-action span {
+  color: #27834b;
+}
+
+.ms-section-heading h2,
+.ms-panel h2 {
+  color: #26352d;
+}
+
+.ms-qr a {
+  color: #27834b;
+}
+
+.ms-action {
+  background: #fafffb;
+}
+
+.ms-menu-item {
+  background: #ffffff;
+  border: 1px solid #e5eee8;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.ms-dashboard button,
+button.primary {
+  background: #27834b;
+  color: #ffffff;
+}
+
+.ms-dashboard button:hover,
+button.primary:hover {
+  background: #1e693b;
+}
+
+.ms-dashboard button.secondary {
+  background: #eaf5ed;
+  color: #27834b;
+}
+
+.ms-dashboard button.danger {
+  background: #dc4444;
+  color: #ffffff;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #27834b;
+  box-shadow: 0 0 0 3px rgba(39, 131, 75, .12);
+}
+
+@media (min-width: 1100px) {
+  main {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    margin-top: 15px;
+    padding: 0 12px 30px;
+  }
+
+  .ms-dashboard {
+    width: 100%;
+  }
+
+  .ms-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ms-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ms-menu-item {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .ms-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ms-menu-item img {
+    width: 54px;
+    height: 54px;
+  }
+}
