@@ -442,10 +442,17 @@ function renderDashboard() {
 
       <div class="panel ms-panel">
         <h2>Your Menu Items</h2>
+        <div class="field">
+  <input
+    id="owner-item-search"
+    type="search"
+    placeholder="Search menu items by name..."
+  >
+</div>
 
         <div class="item-list">
           ${items.map(item => `
-            <div class="item ms-menu-item">
+            <div class="item ms-menu-item" data-search="${esc(item.name.toLowerCase())}">
               <img src="${esc(item.image_url || 'https://placehold.co/120x120')}"
                 alt="${esc(item.name)}">
 
@@ -488,6 +495,15 @@ function renderDashboard() {
   document.querySelectorAll('[data-toggle]').forEach(b =>
     b.onclick = () => toggleItem(b.dataset.toggle)
   );
+  $('#owner-item-search').oninput = e => {
+  const query = e.target.value.toLowerCase().trim();
+
+  document.querySelectorAll('.ms-menu-item').forEach(row => {
+    row.style.display = row.dataset.search.includes(query)
+      ? ''
+      : 'none';
+  });
+};
 }
 
 
