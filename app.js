@@ -383,12 +383,22 @@ function renderDashboard() {
       <div class="panel ms-panel">
         <h2>Menu Categories</h2>
 
-        <div class="field">
-          <input id="new-category"
-            placeholder="Category name, e.g. Starters">
-        </div>
+        
+<div class="field">
+  <label>CATEGORY NAME</label>
+  <input id="new-category"
+    placeholder="Category name, e.g. Starters">
+</div>
 
-        <button class="primary" id="add-category">Add Category</button>
+<div class="field">
+  <label>CATEGORY COVER IMAGE</label>
+  <input id="category-image" type="file"
+    accept="image/png,image/jpeg,image/webp">
+  <small>Upload a food category photo (maximum 5 MB).</small>
+</div>
+
+<button class="primary" id="add-category">Add Category</button>
+
 
         
 <div class="ms-category-grid">
@@ -511,7 +521,57 @@ function renderDashboard() {
 }
 
 
+
 async function addCategory() {
+  const name = $('#new-category').value.trim();
+  const file = $('#category-image').files[0];
+
+  if (!name) {
+    toast('Enter a category name.');
+    return;
+  }
+
+  let image_url = null;
+
+  if (file) {
+    if (file.size > 5 * 1024 * 1024) {
+      toast('Category image must be smaller than 5 MB.');
+      return;
+    }
+
+    const path = `${user.id}/${restaurant.id}/categories/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+
+    const upload = await sb.storage
+      .from('menusnap-images')
+      .upload(path, file, { upsert: true });
+
+    if (upload.error) {
+      toast(upload.error.message);
+      return;
+    }
+
+    image_url = sb.storage
+      .from('menusnap-images')
+      .getPublicUrl(path).data.publicUrl;
+  }
+
+  const { error } = await sb.from('ms_categories').insert({
+    restaurant_id: restaurant.id,
+    name,
+    image_url,
+    sort_order: categories.length
+  });
+
+  if (error) {
+    toast(error.message);
+    return;
+  }
+
+  await loadMenuData();
+  renderDashboard();
+  toast('Category added successfully.');
+}
+
   const name = $('#new-category').value.trim();
 
   if (!name) {
