@@ -832,8 +832,6 @@ async function publicMenu(slug) {
     ${(i.data || []).filter(x => !x.category_id).map(publicCard).join('')}
   `);
 
-  );
-
   $('#customer-menu-search').oninput = e => {
     const query = e.target.value.toLowerCase().trim();
 
