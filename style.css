@@ -958,3 +958,131 @@ textarea:focus {
     height: 54px;
   }
 }
+
+
+/* MENUSNAP CATEGORY AND MENU ITEM DESIGN */
+
+.ms-category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.ms-category-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px;
+  background: #f8fcf9;
+  border: 1px solid #e1eee5;
+  border-radius: 14px;
+  transition: 0.2s ease;
+}
+
+.ms-category-card:hover {
+  border-color: #27834b;
+  box-shadow: 0 4px 14px rgba(39, 131, 75, 0.08);
+}
+
+.ms-category-icon {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: grid;
+  place-items: center;
+  background: #e6f4e9;
+  border-radius: 12px;
+  font-size: 22px;
+}
+
+.ms-category-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.ms-category-details strong,
+.ms-category-details small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.ms-category-details strong {
+  color: #26352d;
+  font-size: 15px;
+}
+
+.ms-category-details small {
+  color: #718078;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.ms-category-card button {
+  flex-shrink: 0;
+}
+
+.ms-dashboard .ms-menu-item {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  margin: 12px 0;
+  background: #ffffff;
+  border: 1px solid #e5eee8;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(30, 80, 50, .04);
+}
+
+.ms-dashboard .ms-menu-item img {
+  width: 76px !important;
+  height: 76px !important;
+  max-width: 76px !important;
+  max-height: 76px !important;
+  object-fit: cover !important;
+  border-radius: 12px;
+}
+
+.ms-menu-item .item-info {
+  min-width: 0;
+}
+
+.ms-menu-item .item-info strong {
+  display: block;
+  color: #26352d;
+  overflow-wrap: anywhere;
+}
+
+.ms-menu-item .item-info small {
+  display: inline-block;
+  margin-top: 5px;
+  color: #27834b;
+}
+
+@media (max-width: 650px) {
+  .ms-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ms-category-card {
+    padding: 12px;
+  }
+
+  .ms-dashboard .ms-menu-item {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .ms-dashboard .ms-menu-item img {
+    width: 64px !important;
+    height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+  }
+
+  .ms-menu-item button {
+    justify-self: start;
+  }
+}
