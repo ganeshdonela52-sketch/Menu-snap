@@ -813,6 +813,13 @@ async function publicMenu(slug) {
     <div class="menu-head">
       <h1>${esc(r.name)}</h1>
       <p>${esc(r.description || 'Digital menu')}</p>
+     <div class="field menu-search">
+  <input
+    id="customer-menu-search"
+    type="search"
+    placeholder="Search food items..."
+  >
+</div> 
     </div>
 
     ${groups.map(g => `
@@ -824,11 +831,34 @@ async function publicMenu(slug) {
 
     ${(i.data || []).filter(x => !x.category_id).map(publicCard).join('')}
   `);
+
+  );
+
+  $('#customer-menu-search').oninput = e => {
+    const query = e.target.value.toLowerCase().trim();
+
+    document.querySelectorAll('.public-card').forEach(card => {
+      card.style.display = card.dataset.search.includes(query)
+        ? ''
+        : 'none';
+    });
+
+    document.querySelectorAll('.public-items').forEach(section => {
+      const heading = section.previousElementSibling;
+      const hasVisibleItems = [...section.querySelectorAll('.public-card')]
+        .some(card => card.style.display !== 'none');
+
+      if (heading?.classList.contains('menu-category')) {
+        heading.style.display = hasVisibleItems ? '' : 'none';
+      }
+    });
+  };
 }
 
 function publicCard(x) {
+
   return `
-    <article class="public-card">
+    <article class="public-card" data-search="${esc(x.name.toLowerCase())}">
       ${x.image_url ? `<img src="${esc(x.image_url)}" alt="${esc(x.name)}">` : ''}
       <div class="public-card-body">
         <h3>${esc(x.name)}</h3>
