@@ -390,16 +390,20 @@ function renderDashboard() {
 
         <button class="primary" id="add-category">Add Category</button>
 
-        <div class="item-list">
-          ${categories.map(c => `
-            <div class="item">
-              <div class="item-info">
-                <strong>${esc(c.name)}</strong>
-              </div>
-              <button class="danger small" data-delcat="${c.id}">Delete</button>
-            </div>
-          `).join('')}
-        </div>
+        
+<div class="ms-category-grid">
+  ${categories.map(c => `
+    <div class="ms-category-card">
+      <div class="ms-category-icon">🍽️</div>
+      <div class="ms-category-details">
+        <strong>${esc(c.name)}</strong>
+        <small>${items.filter(item => item.category_id === c.id).length} menu items</small>
+      </div>
+      <button class="danger small" data-delcat="${c.id}">Delete</button>
+    </div>
+  `).join('')}
+</div>
+
       </div>
 
       <div class="panel ms-panel">
