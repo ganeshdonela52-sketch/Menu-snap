@@ -544,8 +544,6 @@ function renderDashboard() {
 };
 }
 
-
-
 async function addItem() {
   const name = $('#item-name').value.trim();
   const price = Number($('#item-price').value);
