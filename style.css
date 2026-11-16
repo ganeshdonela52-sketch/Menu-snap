@@ -1086,3 +1086,133 @@ textarea:focus {
     justify-self: start;
   }
 }
+
+/* MENUSNAP PROFESSIONAL CATEGORY DESIGN */
+
+.ms-category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.ms-category-card {
+  background: #ffffff;
+  border: 1px solid #e5eee8;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(30, 80, 50, 0.07);
+  min-width: 0;
+}
+
+.ms-category-cover {
+  width: 100%;
+  height: 190px;
+  background: #edf5ef;
+  overflow: hidden;
+}
+
+.ms-category-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ms-category-placeholder,
+.ms-food-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 38px;
+  background: #edf5ef;
+}
+
+.ms-category-details {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.ms-category-details strong {
+  font-size: 17px;
+  color: #245b3b;
+}
+
+.ms-category-details small {
+  background: #e8f5ec;
+  color: #287847;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.ms-category-foods {
+  padding: 0 14px 14px;
+}
+
+.ms-category-food {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid #edf1ee;
+  min-width: 0;
+}
+
+.ms-category-food img,
+.ms-food-placeholder {
+  width: 62px;
+  height: 62px;
+  min-width: 62px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.ms-food-placeholder {
+  font-size: 23px;
+}
+
+.ms-food-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ms-food-info strong {
+  color: #263b2e;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.ms-food-info small {
+  color: #25834b;
+  font-weight: 600;
+}
+
+.ms-category-card > button {
+  margin: 0 14px 14px;
+}
+
+@media (max-width: 650px) {
+  .ms-category-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ms-category-cover {
+    height: 180px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .ms-category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
