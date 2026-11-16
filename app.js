@@ -401,18 +401,42 @@ function renderDashboard() {
 
 
         
+
 <div class="ms-category-grid">
   ${categories.map(c => `
     <div class="ms-category-card">
-      <div class="ms-category-icon">🍽️</div>
+      <div class="ms-category-cover">
+        ${c.image_url
+          ? `<img src="${esc(c.image_url)}" alt="${esc(c.name)}">`
+          : `<div class="ms-category-placeholder">🍽️</div>`
+        }
+      </div>
+
       <div class="ms-category-details">
         <strong>${esc(c.name)}</strong>
-        <small>${items.filter(item => item.category_id === c.id).length} menu items</small>
+        <small>${items.filter(item => item.category_id === c.id).length} items</small>
       </div>
-      <button class="danger small" data-delcat="${c.id}">Delete</button>
+
+      <div class="ms-category-foods">
+        ${items.filter(item => item.category_id === c.id).map(item => `
+          <div class="ms-category-food">
+            ${item.image_url
+              ? `<img src="${esc(item.image_url)}" alt="${esc(item.name)}">`
+              : `<div class="ms-food-placeholder">🍴</div>`
+            }
+            <div class="ms-food-info">
+              <strong>${esc(item.name)}</strong>
+              <small>₹${Number(item.price).toFixed(2)}</small>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <button class="danger small" data-delcat="${c.id}">Delete Category</button>
     </div>
   `).join('')}
 </div>
+
 
       </div>
 
