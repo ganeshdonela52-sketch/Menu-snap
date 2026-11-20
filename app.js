@@ -494,39 +494,6 @@ function renderDashboard() {
         <button class="primary" id="add-item">Add Menu Item</button>
       </div>
 
-      <div class="panel ms-panel">
-        <h2>Your Menu Items</h2>
-        <div class="field">
-  <input
-    id="owner-item-search"
-    type="search"
-    placeholder="Search menu items by name..."
-  >
-</div>
-
-        <div class="item-list">
-          ${items.map(item => `
-            <div class="item ms-menu-item" data-search="${esc(item.name.toLowerCase())}">
-              <img src="${esc(item.image_url || 'https://placehold.co/120x120')}"
-                alt="${esc(item.name)}">
-
-              <div class="item-info">
-                <strong>${esc(item.name)} · ₹${Number(item.price).toFixed(2)}</strong>
-                <small>${item.is_available ? 'Available' : 'Unavailable'}</small>
-              </div>
-
-              <button class="secondary small" data-edit="${item.id}">Edit</button>
-
-              <button class="small" data-toggle="${item.id}">
-                ${item.is_available ? 'Hide' : 'Show'}
-              </button>
-
-              <button class="danger small" data-delete="${item.id}">Delete</button>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-
     </div>
   `);
 
