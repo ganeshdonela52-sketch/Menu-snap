@@ -479,6 +479,10 @@ function renderDashboard() {
     b.onclick = () => deleteCategory(b.dataset.delcat)
   );
 
+  document.querySelectorAll('[data-open-category]').forEach(b =>
+  b.onclick = () => openCategory(b.dataset.openCategory)
+);
+  
   document.querySelectorAll('[data-delete]').forEach(b =>
     b.onclick = () => deleteItem(b.dataset.delete)
   );
