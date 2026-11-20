@@ -1290,3 +1290,13 @@ textarea:focus {
     flex: 1;
   }
 }
+
+/* FIX EDIT BUTTON */
+.ms-food-actions button.secondary[data-edit] {
+  background: #167D45 !important;
+  color: #ffffff !important;
+  border: 1px solid #167D45 !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 3px 8px rgba(22,125,69,0.2);
+}
