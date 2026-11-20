@@ -406,7 +406,7 @@ function renderDashboard() {
 <div class="ms-category-grid">
   ${categories.map(c => `
     <div class="ms-category-card">
-      <button class="ms-category-open" data-open-category="${c.id}">
+      <button type="button" class="ms-category-open" data-open-category="${c.id}" onclick="openCategory('${c.id}')">
         <div class="ms-category-cover">
           ${c.image_url
             ? `<img src="${esc(c.image_url)}" alt="${esc(c.name)}">`
