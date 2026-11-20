@@ -405,50 +405,24 @@ function renderDashboard() {
 
 <div class="ms-category-grid">
   ${categories.map(c => `
-    <details class="ms-category-card">
-      <summary class="ms-category-summary">
+    <div class="ms-category-card">
+      <button class="ms-category-open" data-open-category="${c.id}">
         <div class="ms-category-cover">
           ${c.image_url
             ? `<img src="${esc(c.image_url)}" alt="${esc(c.name)}">`
             : `<div class="ms-category-placeholder">🍽️</div>`
           }
         </div>
-
         <div class="ms-category-details">
           <strong>${esc(c.name)}</strong>
           <small>${items.filter(item => item.category_id === c.id).length} items</small>
-          <span>Tap to view items ▾</span>
+          <span>Manage items →</span>
         </div>
-      </summary>
-
-      <div class="ms-category-foods">
-        ${items.filter(item => item.category_id === c.id).map(item => `
-          <div class="ms-category-food">
-            ${item.image_url
-              ? `<img src="${esc(item.image_url)}" alt="${esc(item.name)}">`
-              : `<div class="ms-food-placeholder">🍴</div>`
-            }
-
-            <div class="ms-food-info">
-              <strong>${esc(item.name)}</strong>
-              <small>₹${Number(item.price).toFixed(2)}</small>
-            </div>
-
-            <div class="ms-food-actions">
-              <button class="secondary small" data-edit="${item.id}">✎ Edit</button>
-              <button class="small" data-toggle="${item.id}">
-                ${item.is_available ? 'Hide' : 'Show'}
-              </button>
-              <button class="danger small" data-delete="${item.id}">Delete</button>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-
+      </button>
       <button class="danger small" data-delcat="${c.id}">
         Delete Category
       </button>
-    </details>
+    </div>
   `).join('')}
 </div>
 
