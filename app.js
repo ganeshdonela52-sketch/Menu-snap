@@ -518,6 +518,96 @@ function renderDashboard() {
   );
 }
 
+
+function openCategory(id) {
+  const category = categories.find(c => c.id === id);
+  if (!category) return;
+
+  const categoryItems = items.filter(
+    item => item.category_id === id
+  );
+
+  showWorkspace(`
+    <div class="ms-category-page">
+
+      <button class="secondary" id="back-categories">
+        ← Back to Categories
+      </button>
+
+      <h2>${esc(category.name)}</h2>
+      <p>${categoryItems.length} menu items</p>
+
+      <button class="primary" id="category-add-item">
+        + Add Item
+      </button>
+
+      <div class="ms-item-list">
+        ${categoryItems.map(item => `
+          <div class="ms-item-row">
+
+            ${item.image_url
+              ? `<img class="ms-zoom-image"
+                   src="${esc(item.image_url)}"
+                   alt="${esc(item.name)}">`
+              : `<div class="ms-food-placeholder">🍽️</div>`
+            }
+
+            <div class="ms-food-info">
+              <strong>${esc(item.name)}</strong>
+              <small>₹${Number(item.price).toFixed(2)}</small>
+            </div>
+
+            <div class="ms-food-actions">
+              <button class="secondary small"
+                data-edit="${item.id}">Edit</button>
+
+              <button class="small"
+                data-toggle="${item.id}">
+                ${item.is_available ? 'Hide' : 'Show'}
+              </button>
+
+              <button class="danger small"
+                data-delete="${item.id}">Delete</button>
+            </div>
+
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `);
+
+  $('#back-categories').onclick = renderDashboard;
+
+  $('#category-add-item').onclick = () => {
+    $('#item-name')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  document.querySelectorAll('.ms-zoom-image').forEach(img => {
+    img.onclick = () => {
+      const preview = document.createElement('div');
+      preview.className = 'ms-image-preview';
+      preview.innerHTML = `
+        <button class="ms-image-close">×</button>
+        <img src="${img.src}" alt="${img.alt}">
+      `;
+      preview.onclick = () => preview.remove();
+      document.body.appendChild(preview);
+    };
+  });
+
+  document.querySelectorAll('[data-edit]').forEach(b =>
+    b.onclick = () => editItem(b.dataset.edit)
+  );
+
+  document.querySelectorAll('[data-toggle]').forEach(b =>
+    b.onclick = () => toggleItem(b.dataset.toggle)
+  );
+
+  document.querySelectorAll('[data-delete]').forEach(b =>
+    b.onclick = () => deleteItem(b.dataset.delete)
+  );
+}
+
 async function addItem() {
   const name = $('#item-name').value.trim();
   const price = Number($('#item-price').value);
