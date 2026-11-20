@@ -1216,3 +1216,77 @@ textarea:focus {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+/* MENUSNAP PREMIUM SOLID BUTTONS */
+
+.ms-food-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.ms-food-actions button {
+  min-height: 40px;
+  padding: 9px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+/* EDIT - SOLID GREEN */
+.ms-food-actions button.secondary[data-edit] {
+  background: #167D45;
+  color: #ffffff;
+  border-color: #167D45;
+}
+
+/* DELETE - SOLID RED */
+.ms-food-actions button.danger[data-delete],
+.ms-category-card > button.danger[data-delcat] {
+  background: #D92D36;
+  color: #ffffff;
+  border-color: #D92D36;
+}
+
+/* HIDE / SHOW - SOFT GREEN */
+.ms-food-actions button[data-toggle] {
+  background: #E7F4EB;
+  color: #176B3A;
+  border-color: #CDE8D5;
+}
+
+/* ADD BUTTONS - SOLID GREEN */
+#add-category,
+#add-item {
+  min-height: 44px;
+  padding: 11px 18px;
+  border-radius: 11px;
+  background: #167D45;
+  color: #ffffff;
+  border: 1px solid #167D45;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(22,125,69,0.18);
+}
+
+/* HOVER EFFECT */
+.ms-food-actions button:hover,
+#add-category:hover,
+#add-item:hover {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .ms-food-actions {
+    width: 100%;
+  }
+
+  .ms-food-actions button {
+    flex: 1;
+  }
+}
