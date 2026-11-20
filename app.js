@@ -549,6 +549,7 @@ function renderDashboard() {
   document.querySelectorAll('[data-toggle]').forEach(b =>
     b.onclick = () => toggleItem(b.dataset.toggle)
   );
+}
 
 async function addItem() {
   const name = $('#item-name').value.trim();
