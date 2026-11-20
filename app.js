@@ -549,16 +549,6 @@ function renderDashboard() {
   document.querySelectorAll('[data-toggle]').forEach(b =>
     b.onclick = () => toggleItem(b.dataset.toggle)
   );
-  $('#owner-item-search').oninput = e => {
-  const query = e.target.value.toLowerCase().trim();
-
-  document.querySelectorAll('.ms-menu-item').forEach(row => {
-    row.style.display = row.dataset.search.includes(query)
-      ? ''
-      : 'none';
-  });
-};
-}
 
 async function addItem() {
   const name = $('#item-name').value.trim();
