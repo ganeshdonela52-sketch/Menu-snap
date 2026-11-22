@@ -1550,7 +1550,7 @@ body > .ms-image-preview .ms-image-close {
 
 .ms-image-preview .ms-image-close {
   position: fixed !important;
-  top: 155px !important;
+  top: 8px !important;
   right: 14px !important;
   width: 42px !important;
   height: 42px !important;
