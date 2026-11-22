@@ -1397,3 +1397,85 @@ textarea:focus {
     flex-wrap: wrap;
   }
 }
+
+
+/* MENUSNAP FOOD ITEM LAYOUT FIX */
+
+.ms-item-row {
+  display: grid !important;
+  grid-template-columns: 80px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 14px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #e5eee8 !important;
+  border-radius: 14px !important;
+}
+
+.ms-item-row > img,
+.ms-item-row > .ms-food-placeholder {
+  width: 80px !important;
+  min-width: 80px !important;
+  max-width: 80px !important;
+  height: 80px !important;
+  max-height: 80px !important;
+  object-fit: cover !important;
+  border-radius: 10px !important;
+}
+
+.ms-item-row .ms-food-info {
+  min-width: 0 !important;
+  overflow-wrap: anywhere !important;
+}
+
+.ms-item-row .ms-food-info strong {
+  display: block !important;
+  color: #263b2e !important;
+  font-size: 15px !important;
+}
+
+.ms-item-row .ms-food-info small {
+  display: block !important;
+  margin-top: 5px !important;
+  color: #167D45 !important;
+}
+
+.ms-item-row .ms-food-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 7px !important;
+  margin: 0 !important;
+}
+
+.ms-item-row .ms-food-actions button {
+  min-width: 75px !important;
+  width: auto !important;
+}
+
+@media (max-width: 600px) {
+  .ms-item-row {
+    grid-template-columns: 68px minmax(0, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .ms-item-row > img,
+  .ms-item-row > .ms-food-placeholder {
+    width: 68px !important;
+    min-width: 68px !important;
+    max-width: 68px !important;
+    height: 68px !important;
+    max-height: 68px !important;
+  }
+
+  .ms-item-row .ms-food-actions {
+    grid-column: 1 / -1 !important;
+    flex-direction: row !important;
+    width: 100% !important;
+  }
+
+  .ms-item-row .ms-food-actions button {
+    flex: 1 !important;
+  }
+}
