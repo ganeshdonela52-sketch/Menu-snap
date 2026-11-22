@@ -565,9 +565,12 @@ function openCategory(id) {
       const preview = document.createElement('div');
       preview.className = 'ms-image-preview';
       preview.innerHTML = `
-        <button class="ms-image-close">×</button>
-        <img src="${img.src}" alt="${img.alt}">
-      `;
+  <button class="ms-image-close" type="button"
+    style="position:fixed;top:12px;right:12px;">
+    ×
+  </button>
+  <img src="${img.src}" alt="${img.alt}">
+`;
       preview.onclick = () => preview.remove();
       document.body.appendChild(preview);
     };
