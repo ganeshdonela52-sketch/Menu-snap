@@ -1544,3 +1544,20 @@ body > .ms-image-preview .ms-image-close {
   right: 18px !important;
   z-index: 1000000 !important;
 }
+
+
+/* IMAGE PREVIEW CLOSE BUTTON POSITION */
+
+.ms-image-preview .ms-image-close {
+  position: fixed !important;
+  top: 155px !important;
+  right: 14px !important;
+  width: 42px !important;
+  height: 42px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  font-size: 28px !important;
+  z-index: 1000000 !important;
+}
