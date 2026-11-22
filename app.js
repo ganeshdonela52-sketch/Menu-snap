@@ -349,7 +349,9 @@ function renderDashboard() {
           <h2>Restaurant Profile</h2>
           <h3>${esc(restaurant.name)}</h3>
           <p>${esc(restaurant.description || 'Your restaurant profile')}</p>
-          <button class="secondary" id="edit-rest">Edit Restaurant</button>
+          <button type="button" class="secondary" id="edit-rest" onclick="editRestaurant()">
+  Edit Restaurant
+</button>
         </div>
 
         <div class="panel ms-panel ms-qr">
@@ -473,7 +475,6 @@ function renderDashboard() {
 
   $('#add-category').onclick = addCategory;
   $('#add-item').onclick = addItem;
-  $('#edit-rest').onclick = editRestaurant;
 
   document.querySelectorAll('[data-delcat]').forEach(b =>
     b.onclick = () => deleteCategory(b.dataset.delcat)
